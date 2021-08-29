@@ -12,23 +12,36 @@ RSpec.describe 'User', type: :request do
       }
     end
 
-    context 'valid params' do
-      it 'makes a new user' do
-        post '/users', params: params
-
-        expect(User.all.count).to eq 1
-        expect(response.content_type).to include('application/json')
-        expect(response).to have_http_status(:created)
-      end
+    let(:errors) do
+      {
+        messages: [
+          {
+            password: ["can't be blank"],
+            username: ["can't be blank"],
+            email:    ["can't be blank"],
+          }
+        ]
+      }.to_json
     end
 
-    xcontext 'invalid params' do
-      it 'returns validation errors' do
-      end
+    it 'makes a new user' do
+      post '/users', params: params
+
+      expect(User.all.count).to eq(1)
+      expect(response.body).to eq({ messages: ['bob created'] }.to_json)
+      expect(response).to have_http_status(:created)
+    end
+
+    it 'returns validation errors' do
+      post  '/users', params: { user: { username: '' } }
+
+      expect(User.all.count).to eq 0
+      expect(response).to have_http_status(:bad_request)
+      expect(response.body).to eq(errors)
     end
   end
 
-  xdescribe '.show' do
+  xdescribe 'get /users/:id' do
     context 'valid token' do
       it 'returns user information' do
       end
