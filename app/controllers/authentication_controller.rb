@@ -15,7 +15,6 @@ class AuthenticationController < ApplicationController
   end
 
   def parameter_missing(e)
-    p 'I rans'
     render json: { error: e.message }, status: :unprocessable_entity
   end
 end
