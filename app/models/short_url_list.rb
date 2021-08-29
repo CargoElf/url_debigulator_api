@@ -1,3 +1,5 @@
 class ShortUrlList < ApplicationRecord
-  belongs_to :link
+  has_one :link
+
+  
 end

@@ -16,12 +16,14 @@ ActiveRecord::Schema.define(version: 2021_08_28_212215) do
     t.string "original_url", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["original_url"], name: "index_links_on_original_url", unique: true
   end
 
   create_table "short_url_lists", force: :cascade do |t|
-    t.string "short_url"
+    t.string "short_url", null: false
     t.integer "link_id"
     t.index ["link_id"], name: "index_short_url_lists_on_link_id"
+    t.index ["short_url"], name: "index_short_url_lists_on_short_url", unique: true
   end
 
   create_table "user_links", id: false, force: :cascade do |t|
@@ -37,6 +39,8 @@ ActiveRecord::Schema.define(version: 2021_08_28_212215) do
     t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
   add_foreign_key "short_url_lists", "links"
