@@ -5,7 +5,7 @@ class AuthenticationController < ApplicationController
     user = User.find_by_username(authenticate_params[:username])
 
     if user&.authenticate(authenticate_params[:password])
-      token = AuthenticationTokenService.call(user.id)
+      token = AuthenticationTokenService.encode(user.id)
 
       render json: { token: token }, status: :created
     else

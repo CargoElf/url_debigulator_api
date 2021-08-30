@@ -1,24 +1,24 @@
-# README
+## Getting Started
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Normal setup for db. Make sure to run the seed.
 
-Things you may want to cover:
+Run `EDITOR="mate --wait" bin/rails credentials:edit`
 
-* Ruby version
+Add this this in the credentials
 
-* System dependencies
+```
+jws_token:
+  hmac_secret: your_secret_shhh
+  algorith: your_algorithm_here
+```
 
-* Configuration
+## Helpful Curl Commands
 
-* Database creation
+Created a user
+`curl --header "Content-Type: application/json" --request POST --data '{ "user": { "username": "bob", "email": "qwe@fas.uk", "password": "1234" } }' localhost:3000/users`
 
-* Database initialization
+Authenticate user
+`curl --header "Content-Type: application/json" --request POST --data '{ "authenticate": { "username": "bob", "password": "1234" } }' localhost:3000/authenticate`
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Pass token and url to debigulate
+`curl --header "Authorization: Bearer < token goes here >" --header "Content-Type: application/json" --request POST --data '{ "url": "https://amazon.com" }' localhost:3000/link`

@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe AuthenticationTokenService do
-  describe '.call' do
-    let(:token) { described_class.call(1) }
+  describe '.encode' do
+    let(:token) { described_class.encode(1) }
     let(:hmac_secret) { Rails.application.credentials[:jws_token][:hmac_secret] }
     let(:algorithm) { Rails.application.credentials[:jws_token][:algorithm] }
 
