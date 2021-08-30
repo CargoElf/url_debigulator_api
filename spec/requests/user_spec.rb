@@ -40,11 +40,4 @@ RSpec.describe 'User', type: :request do
       expect(response.body).to eq(errors)
     end
   end
-
-  xdescribe 'get /users/:id' do
-    context 'valid token' do
-      it 'returns user information' do
-      end
-    end
-  end
 end

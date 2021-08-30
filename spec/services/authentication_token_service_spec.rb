@@ -1,22 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe AuthenticationTokenService do
-  describe '.encode' do
-    let(:token) { described_class.encode(1) }
-    let(:hmac_secret) { Rails.application.credentials[:jws_token][:hmac_secret] }
-    let(:algorithm) { Rails.application.credentials[:jws_token][:algorithm] }
+  let(:token) { 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.ylpztta5CnepOvMn0Vl7UZOqzERIGleFWuirNiH8ILs' }
 
-    let(:decoded_token) do
-      JWT.decode(
-        token,
-        hmac_secret,
-        true,
-        { algorithm: algorithm }
-      )
+  describe '.decode' do
+    it 'returns a user_id' do
+      expect(described_class.decode(token)).to eq(1)
     end
+  end
 
-    it 'returns an authentication token' do
-      expect(decoded_token).to eq([{ "user_id" => 1 }, { "alg" => algorithm }])
+  describe '.encode' do
+    it 'returns a token' do
+      expect(described_class.encode(1)).to eq(token)
     end
   end
 end

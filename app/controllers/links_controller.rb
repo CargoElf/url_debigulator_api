@@ -8,7 +8,7 @@ class LinksController < ApplicationController
     link = Link.find_by_original_url(new_link_params[:url]) || Link.new(original_url: new_link_params[:url])
 
     if link.persisted?
-      render jason: { messages: [return_url(link.short_url)] }, status: :ok
+      render json: { messages: [return_url(link.short_url)] }, status: :ok
     elsif link.valid?
       user.links << link
       link.set_short_url
@@ -37,6 +37,3 @@ class LinksController < ApplicationController
     'localhost:3000/' + short_url
   end
 end
-
-#curl --header "Content-Type: application/json" --request POST --data '{ "authenticate": { "username": "bob", "password": "1234" } }' localhost:3000/authenticate
-#curl --header "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.ylpztta5CnepOvMn0Vl7UZOqzERIGleFWuirNiH8ILs" --header "Content-Type: application/json" --request POST --data '{ "url": "https://amazon.com" }' localhost:3000/link
