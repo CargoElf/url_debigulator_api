@@ -2,15 +2,18 @@ require 'rails_helper'
 
 RSpec.describe 'Authentication', type: :request do
   describe 'POST /authenticate' do
+    let!(:user) { User.create(username: 'bob', email: 'test', password: 'lulz') }
+    let(:token) { AuthenticationTokenService.call(user.id) }
+
     let(:error) do
-      "{\"error\":\"param is missing or the value is empty: username\\nDid you mean?  username\\n               password\\n               controller\\n               action\"}"
+      "{\"error\":\"param is missing or the value is empty: authenticate\\nDid you mean?  action\\n               username\\n               controller\\n               password\"}"
     end
 
     it 'authenticates the client' do
-      post '/authenticate', params: { authenticate: { username: 'bob', password: 'password' } }
+      post '/authenticate', params: { authenticate: { username: 'bob', password: 'lulz' } }
 
       expect(response).to have_http_status(:created)
-      expect(response.body).to eq({ token: '123' })
+      expect(response.body).to eq("{\"token\":\"#{token}\"}")
     end
 
     it 'returns error if params are invalid' do
