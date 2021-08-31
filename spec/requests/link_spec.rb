@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Link', type: :request do
-  let!(:user) { User.create(username: 'bob', email: 'test', password: '1234') }
+  let!(:user) { User.create(username: 'bob', password: '1234') }
   let!(:short_url) { ShortUrlList.create(short_url: 'halp') }
   let(:auth_header) do
     {

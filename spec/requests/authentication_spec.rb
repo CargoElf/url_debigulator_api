@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Authentication', type: :request do
   describe 'POST /authenticate' do
-    let!(:user) { User.create(username: 'bob', email: 'test', password: 'lulz') }
+    let!(:user) { User.create(username: 'bob', password: 'lulz') }
     let(:token) { AuthenticationTokenService.encode(user.id) }
 
     let(:error) do

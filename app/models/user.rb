@@ -4,6 +4,6 @@ class User < ApplicationRecord
   has_many :user_links
   has_many :links, through: :user_links
 
-  validates_presence_of   :username, :email
-  validates_uniqueness_of :username, :email
+  validates_presence_of   :username
+  validates_uniqueness_of :username
 end

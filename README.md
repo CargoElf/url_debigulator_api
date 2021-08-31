@@ -15,7 +15,7 @@ jws_token:
 ## Helpful Curl Commands
 
 Created a user
-`curl --header "Content-Type: application/json" --request POST --data '{ "user": { "username": "bob", "email": "qwe@fas.uk", "password": "1234" } }' localhost:3000/users`
+`curl --header "Content-Type: application/json" --request POST --data '{ "user": { "username": "bob", "password": "1234" } }' localhost:3000/users`
 
 Authenticate user
 `curl --header "Content-Type: application/json" --request POST --data '{ "authenticate": { "username": "bob", "password": "1234" } }' localhost:3000/authenticate`

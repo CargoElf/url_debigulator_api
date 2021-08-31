@@ -6,7 +6,6 @@ RSpec.describe 'User', type: :request do
       {
         user: {
           username: 'bob',
-          email: 'qwerty@asdf.zxc',
           password: 'password',
         }
       }
@@ -18,7 +17,6 @@ RSpec.describe 'User', type: :request do
           {
             password: ["can't be blank"],
             username: ["can't be blank"],
-            email:    ["can't be blank"],
           }
         ]
       }.to_json
