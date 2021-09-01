@@ -16,4 +16,7 @@ class Link < ApplicationRecord
     short_url_list.short_url
   end
 
+  def return_url
+    'localhost:3000/' + short_url
+  end
 end

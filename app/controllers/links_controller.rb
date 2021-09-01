@@ -8,12 +8,12 @@ class LinksController < ApplicationController
     link = Link.find_by_original_url(new_link_params[:url]) || Link.new(original_url: new_link_params[:url])
 
     if link.persisted?
-      render json: { messages: [return_url(link.short_url)] }, status: :ok
+      render json: { messages: [link.return_url] }, status: :ok
     elsif link.valid?
       user.links << link
       link.set_short_url
 
-      render json: { messages: [return_url(link.short_url)] }, status: :created
+      render json: { messages: [link.return_url] }, status: :created
     else
       render json: { message: ['incorrect params'] }, status: :unprocessable_entity
     end
@@ -31,9 +31,5 @@ class LinksController < ApplicationController
 
   def new_link_params
     params.permit(:url)
-  end
-
-  def return_url(short_url)
-    'localhost:3000/' + short_url
   end
 end
