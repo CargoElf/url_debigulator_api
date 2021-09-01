@@ -21,4 +21,15 @@ RSpec.describe Link, type: :model do
       expect(link.short_url).to eq(short_url_list.short_url)
     end
   end
+
+  context '.find_by_url_or_make_new_link' do
+
+    it 'returna a new link if there is not a url match' do
+      expect(Link.find_by_url_or_make_new_link('www.no_match.com').persisted?).to_not be
+    end
+
+    it 'returna a existing link if there is a url match' do
+      expect(Link.find_by_url_or_make_new_link('http://google.com')).to eq link
+    end
+  end
 end

@@ -19,4 +19,8 @@ class Link < ApplicationRecord
   def return_url
     'localhost:3000/' + short_url
   end
+
+  def self.find_by_url_or_make_new_link(url)
+    Link.find_by_original_url(url) ||  Link.new(original_url: url)
+  end
 end

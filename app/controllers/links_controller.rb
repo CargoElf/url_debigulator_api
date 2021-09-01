@@ -5,7 +5,7 @@ class LinksController < ApplicationController
 
   def create
     user = authenticate_user
-    link = Link.find_by_original_url(new_link_params[:url]) || Link.new(original_url: new_link_params[:url])
+    link = Link.find_by_url_or_make_new_link(new_link_params[:url])
 
     if link.persisted?
       render json: { messages: [link.return_url] }, status: :ok
